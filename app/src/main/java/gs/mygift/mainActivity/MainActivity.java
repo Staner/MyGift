@@ -37,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public static FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
+    public static FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        currentUser    = FirebaseAuth.getInstance().getCurrentUser();
 
 
         if (currentUser == null) {

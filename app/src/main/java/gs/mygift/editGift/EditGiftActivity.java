@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import gs.mygift.R;
@@ -87,13 +89,15 @@ if (MainActivity.choiceGift.getKey()!=null){
 
     private void newGift() {
 
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
         Bitmap bitmap = ((BitmapDrawable)imageButton.getDrawable()).getBitmap();
 
         bitmap = getResizedBitmap(bitmap,80,80);
 
         Gift gift = new Gift(tvName.getText().toString(),
                 Integer.valueOf(tvPrice.getText().toString()),
-                tvDescription.getText().toString(),MainActivity.currentUser.getUid(),bitmap,selectedImage.toString(),"want");
+                tvDescription.getText().toString(),currentUser.getUid(),bitmap,selectedImage.toString(),"want");
 
         FB.saveGift(gift,this);
     }

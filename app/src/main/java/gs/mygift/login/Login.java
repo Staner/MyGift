@@ -27,7 +27,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import gs.mygift.R;
@@ -146,9 +145,10 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult>   task) {
 
                         if (task.isSuccessful()){
+                            Log.d(TAG,"SuccessWithFacebook");
                             //we have a current User
                             //Move to main Activity
-                            startActivity(new Intent(Login.this,MainActivity.class));
+                            moveToMainActivity();
                         }else{
                             Log.d(TAG,"signInWithCredential" +  task.getException().getMessage());
                             Toast.makeText(Login.this, "Error:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -158,6 +158,10 @@ public class Login extends AppCompatActivity {
 
     }
 
+    private void moveToMainActivity() {
+        Intent intent = new Intent(Login.this, MainActivity.class);
+        startActivity(intent);
+    }
 
 
     /**
@@ -205,6 +209,7 @@ public class Login extends AppCompatActivity {
                             //WE HAVE A SAVED USER IN FIREBASE
                             //We can do intent to the mainActivity
                             //We might save our users in realtime database
+                           // MainActivity.currentUser = FirebaseAuth.getInstance().getCurrentUser();
                             Toast.makeText(Login.this, "We have a user", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(Login.this, MainActivity.class));
 
